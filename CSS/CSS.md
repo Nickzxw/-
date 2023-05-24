@@ -8,7 +8,51 @@
 
 外部样式表
 
+
+
+单位：
+
+**绝对长度单位**
+
+| 单位 | 名称         | 等价换算                 |
+| :--- | :----------- | :----------------------- |
+| `cm` | 厘米         | 1cm = 37.8px = 25.2/64in |
+| `mm` | 毫米         | 1mm = 1/10th of 1cm      |
+| `Q`  | 四分之一毫米 | 1Q = 1/40th of 1cm       |
+| `in` | 英寸         | 1in = 2.54cm = 96px      |
+| `pc` | 派卡         | 1pc = 1/6th of 1in       |
+| `pt` | 点           | 1pt = 1/72th of 1in      |
+| `px` | 像素         | 1px = 1/96th of 1in      |
+
+**相对长度单位：**
+
+| 单位         | 解释                                                         |
+| ------------ | ------------------------------------------------------------ |
+| `em`         | 在 `font-size` 中使用是相对于父元素的字体大小，在其他属性中使用是相对于自身的字体大小，如 `width`。 |
+| `ex`         | 字符“x”的高度。                                              |
+| `ch`         | 数字“0”的宽度。                                              |
+| `rem`        | 根元素的字体大小。                                           |
+| `lh`         | 元素的行高。                                                 |
+| `rlh`        | 根元素的行高。当用于根元素的 `font-size` 或 `line-height` 属性时，它指的是这些属性的初始值。 |
+| `vw`         | 视口宽度的 1%。                                              |
+| `vh`         | 视口高度的 1%。                                              |
+| `vmin`       | 视口较小尺寸的 1%。                                          |
+| `vmax`       | 视口大尺寸的 1%。                                            |
+| `vb`         | 在根元素的[块向](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Logical_Properties#块向与行向)上，初始包含块的尺寸的 1%。 |
+| `vi`         | 在根元素的[行向](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Logical_Properties#块向与行向)上，初始包含块的尺寸的 1%。 |
+| `svw`、`svh` | 分别为[视口较小尺寸](https://developer.mozilla.org/zh-CN/docs/Web/CSS/length#基于视口的相对长度单位)的宽度和高度的 1%。 |
+| `lvw`、`lvh` | 分别为[视口大尺寸](https://developer.mozilla.org/zh-CN/docs/Web/CSS/length#基于视口的相对长度单位)的宽度和高度的 1%。 |
+| `dvw`、`dvh` | 分别为[动态视口](https://developer.mozilla.org/zh-CN/docs/Web/CSS/length#基于视口的相对长度单位)的宽度和高度的 1%。 |
+
 ## 基本选择器
+
+选择器优先级：
+
+- ID 选择器，例如: `#container`
+- Class、属性和伪类选择器，例如：`.title`, `input[type="text"]`, `:hover`
+- 类型和伪元素选择器，例如：`div`, `::before`
+
+
 
 *{} - 通用选择器
 
@@ -132,4 +176,30 @@ display: inline;
 ```css
 display: inline-block;
 ```
+
+## 背景
+
+| 背景         | 代码                                                         |
+| ------------ | ------------------------------------------------------------ |
+| 背景颜色     | background-color                                             |
+| 背景图片     | background-iimage                                            |
+| 背景平铺     | background-repeat : repeat / repeat-x / repeat-y / no-repeat |
+| 背景位置     | background-position: x y;（长度/方位词-默认值是居中）        |
+| 背景图像固定 | background-attachment 是否随着页面部分滚动                   |
+
+复合属性：background: 背景颜色 背景图片地址 背景平铺 背景图像滚动 背景图片位置
+
+背景颜色半透明： rgba()alpha 透明度
+
+## CSS三大特性
+
+#### 层叠性
+
+样式冲突问题，就近元素，哪一个样式离元素近，就执行谁（样式覆盖）
+
+#### 继承性
+
+子标签会继承父标签的某些样式（主要是文字相关样式text- font- line- 、以及颜色color）
+
+#### 优先级
 
