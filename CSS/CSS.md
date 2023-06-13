@@ -46,14 +46,6 @@
 
 ## 基本选择器
 
-选择器优先级：
-
-- ID 选择器，例如: `#container`
-- Class、属性和伪类选择器，例如：`.title`, `input[type="text"]`, `:hover`
-- 类型和伪元素选择器，例如：`div`, `::before`
-
-
-
 *{} - 通用选择器
 
 p{} 标签选择器
@@ -203,3 +195,200 @@ display: inline-block;
 
 #### 优先级
 
+| 选择器               | 选择器权重 |
+| -------------------- | ---------- |
+| 继承 或 *            | 0000       |
+| 元素选择器           | 0001       |
+| 类选择器，伪类选择器 | 0010       |
+| ID选择器             | 0100       |
+| 行内样式             | 1000       |
+| !important           | 无穷大     |
+
+注意事项：继承的权重是0
+
+**复合选择器会有权重叠加的问题，选择器权重累加，有叠加但不会进位！！！**
+
+## 盒子模型
+
+content、border、padding、margin
+
+| 属性         | 作用                                          |
+| ------------ | --------------------------------------------- |
+| border-width | 定义边框粗细，单位是px                        |
+| border-style | 边框的样式 solid 实线 dashed 虚线 dotted 点线 |
+| border-color | 边框颜色                                      |
+
+边框简写：1px solid red
+
+**边框会影响盒子的实际大小**
+
+| 属性                        | 作用                                 |
+| --------------------------- | ------------------------------------ |
+| padding: 5px;               | 1个值，代表上下左右都是5px           |
+| padding: 5px 10px;          | 2个值，上下是5px，左右是10px         |
+| padding: 5px 10px 20px;     | 3个值，上5px，左右10px，下位20px     |
+| padding: 5px 10px 20px 30px | 4个值，上5px，右10px，下20px，左30px |
+
+**padding 也会影响盒子的实际大小**
+
+## 网页布局的三种方式
+
+### 标准流
+
+### 浮动流
+
+为什么需要浮动，浮动可以改变元素默认的排列方式，可以让多个块级元素一行内排列显示。
+
+什么是浮动：float 用于创建浮动框，将其移动到一边，直到触碰到左边缘、右边缘或另一个浮动框的边缘。
+
+**网页布局第一准则：多个块级元素，纵向排列找标准流，横向排列找浮动流**
+
+浮动的特性：
+
+- 浮动元素脱离标准流（脱标）
+- 浮动的盒子不再保留原先的位置
+- 浮动元素具有行内块元素的特性（任何元素均可浮动）
+
+浮动盒子只会影响后面的标准流
+
+清除浮动：父级盒子不方便给高度，但子盒子浮动不占有位置，最后父级盒子高度为0时，就会影响下面的标准流盒子
+
+clear: left/right/both
+
+清除浮动的方法：
+
+- 额外标签法！！
+- 父级添加 overflow 属性
+- 父级添加after为元素
+- 父级添加双伪元素
+- (要不还是给个高度吧哈哈)
+
+```css
+/*清除浮动*/
+    .clearfix:before, .clearfix:after {
+      content: "";
+      display: table;
+    }
+    .clearfix:after {
+      clear: both;
+    }
+    .clearfix {
+      *zoom: 1;
+    }
+```
+
+
+
+### 定位流
+
+为什么定位？
+
+定位可以让盒子自由的在某个盒子内移动位置或者固定屏幕中某个位置，可以压住其他盒子
+
+定位 = 定位模式+边偏移
+
+定位模式用于指定一个元素在文档中的定位模式
+
+边偏移决定元素的最终位置
+
+position : 
+
+- static 静态定位 标准流
+- relative  相对定位，相对于自己原来的位置，移动后在标准流的位置保留（不脱标）（常用来给绝对定位当爹）
+- absolute 绝对定位相对于父元素，没有父元素或者父元素没有定位就以浏览器为准定位（拖标）
+- 子绝父相（子元素 绝对定位则 父元素相对定位）
+- fixed 以浏览器的可视窗口为参照点移动元素， 不随滚动条滚动（拖标）
+  - 如何固定在版心右侧：算法（可视区域的一般+ 版心的一半（可以用margin））
+- sticky 粘性定位，相对定位和固定定位的混合
+  - 根据可视窗口为参照点移动元素（固定定位特点）
+  - 粘性定位占有原先的位置（相对定位特点）
+  - 需要设置 top、right、bottom、left 至少一个
+
+边偏移： top right bottom left
+
+绝对定位盒子居中：可视区域的50% + margin 取盒子宽度50%的负值
+
+叠放顺序：z-index  层级相同HTML后面的元素后来者居上
+
+定位的特殊特性：行内元素加了定位就可以加高度和宽度，块级元素加定位宽度高度变成内容的大小
+
+## CSS 属性书写顺序
+
+1. 布局定位属性：display position float celar visbility overflow
+2. 自身属性 width height margin padding border background
+3. 文本属性 color font text-decoration text-align 
+4. 其他属性
+
+## 元素的显示与隐藏
+
+display : none（隐藏对象） block （显示元素） 隐藏会脱标
+
+visibility :  visible hidden 不脱标
+
+overflow :  visible auto hidden 
+
+## CSS 高级技巧
+
+### CSS 雪碧图
+
+通过 background-position：x, y 来定位图片
+
+## HTML 5 新特性
+
+新增语义化标签
+
+- header 头部标签
+- nav 导航标签
+- article 内容标签
+- section 定义文档某个区域
+- aside 侧边栏标签
+- footer  尾部标签
+
+新增多媒体标签：
+
+- 音频：<audio> MP3
+- 视频：<video> MP4
+
+新增input类型：
+
+- type = "email"
+- type = "url" 输入类型必须为 url
+- type = "date"
+- type = "time"
+- type = "month"
+- type = "week"
+- type = "number"
+- type = "tel" 输入类型为手机号码
+- type = "search" 输入类型搜索框
+- type = "color" 颜色选择表单
+
+新增的表单属性：
+
+- required 表单拥有该属性表示其内容不能为空
+- placeholder 提示文本
+- multiple 可以多选文件提交
+
+## CSS 3新特性
+
+结构伪类选择器：
+
+- e: first-child
+- e: last-child
+- e: nth-child(n) 匹配父元素中的第n个子元素E
+  - n 除了数字还可以是关键字，even 偶数， odd 奇数 或者公式 2n / 2n+1
+- e：first-of-type 指定类型E的第一个
+- e：last-of-type 指定类型E的最后一个
+
+伪元素选择器：
+
+- ::after
+- ::before
+
+盒子模型：
+
+box-sizing: border-box width多大 盒子就多大 不会被撑开
+
+过渡（transition）：
+
+- trainsition : 属性 花费时间 运动曲线 何时开始；
+- 谁做过渡给谁加
